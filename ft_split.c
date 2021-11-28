@@ -12,11 +12,13 @@
 
 #include "libft.h"
 
-static int	is_word(char const *s, int c, int count)
+static int	is_word(char const *s, int c)
 {
 	size_t	i;
+	size_t	count;
 
 	i = 0;
+	count = 0;
 	while (s[i])
 	{
 		if (s[i] != c)
@@ -41,7 +43,7 @@ static size_t	ft_find(char const *s, int c, size_t start)
 	return (start - 1);
 }
 
-static int	ft_free(char const **s, size_t index)
+static int	ft_free(char **s, size_t index)
 {
 	if (!s[index])
 	{
@@ -55,14 +57,14 @@ static int	ft_free(char const **s, size_t index)
 char	**ft_split(char const *s, char c)
 {
 	char	**ptr;
-	int	word_count;
+	size_t	word_count;
 	size_t	i;
 	size_t	j;
 	size_t	z;
 
 	i = 0;
 	z = 0;
-	word_count = is_word(s, c, word_count);
+	word_count = is_word(s, c);
 	ptr = (char **)malloc(sizeof(char *) * word_count + 1);
 	if (!ptr)
 		return (NULL);
