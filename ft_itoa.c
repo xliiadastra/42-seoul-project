@@ -1,7 +1,7 @@
 #include "libft.h"
 #include <stdio.h>
 
-static size_t	count_nu(char *ptr, int n)
+static size_t	count_nu(int n)
 {
 	size_t	count;
 
@@ -42,7 +42,7 @@ char	*ft_itoa(int n)
 	char	*ptr;
 	size_t	count;
 
-	count = count_nu(ptr, n);
+	count = count_nu(n);
 	if (n < 0)
 		ptr = (char *)ft_calloc(count + 2, sizeof(char));
 	else
@@ -57,11 +57,4 @@ char	*ft_itoa(int n)
 	else
 		negative(ptr, n, count);
 	return (ptr);
-}
-
-int main()
-{
-	char *string = ft_itoa(1235);
-	printf("%s\n", string);
-	return 0;
 }

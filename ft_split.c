@@ -6,7 +6,7 @@
 /*   By: yichoi <yichoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 21:28:14 by yichoi            #+#    #+#             */
-/*   Updated: 2021/12/02 17:51:02 by yichoi           ###   ########.fr       */
+/*   Updated: 2021/12/03 21:43:19 by yichoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,31 +27,31 @@ static int	is_word(char const *s, int c)
 			while ((s[i] != c) && s[i])
 				i++;
 		}
-		i++;
+		else
+			i++;
 	}
 	return (count);
 }
 
-static size_t	ft_find(char const *s, int c, size_t start)
+static int	ft_find(char s, char c)
 {
-	while (s[start])
-	{
-		if (s[start] == c)
-			return (start - 1);
-		start++;
-	}
-	return (start - 1);
+	if (s == c)
+		return (1);
+	else
+		return (0);
 }
 
-static int	ft_free(char **s, size_t index)
+static int	ft_free(char **s, size_t count)
 {
-	if (!s[index])
+	while (count--)
 	{
-		free(s);
-		return (0);
+		if (!s[count])
+		{
+			free(s);
+			return (0);
+		}
 	}
-	else
-		return (1);
+	return (1);
 }
 
 char	**ft_split(char const *s, char c)
@@ -63,24 +63,32 @@ char	**ft_split(char const *s, char c)
 	size_t	z;
 
 	i = 0;
+	j = 0;
 	z = 0;
+	if (!s)
+		return (NULL);
 	word_count = is_word(s, c);
 	ptr = (char **)malloc(sizeof(char *) * word_count + 1);
 	if (!ptr)
 		return (NULL);
-	while (s[i] && (s[i] == c))
-		i++;
-	while (word_count--)
+	while (s[i])
 	{
-		j = ft_find(s, c, i);
-		ptr[z] = ft_substr(s, (unsigned int)i, j - i + 1);
-		if (!ft_free(ptr, z))
-			return (NULL);
-		while (s[j + 1] == c)
-			j++;
-		i = j + 1;
-		z++;
+		if (!ft_find(s[i], c))
+		{
+			j = i;
+			while (s[j] != c && s[j])
+				j++;
+			if (j != i)
+				ptr[z] = ft_substr(s, (unsigned int)i, j - i + 1);
+			else
+				break ;
+			i = j;
+			z++;
+		}
+		else
+			i++;
 	}
-	ptr[z] = '\0';
+	if (!ft_free(ptr, word_count))
+		return (NULL);
 	return (ptr);
 }
