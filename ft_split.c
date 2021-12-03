@@ -6,7 +6,7 @@
 /*   By: yichoi <yichoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 21:28:14 by yichoi            #+#    #+#             */
-/*   Updated: 2021/11/27 21:58:58 by yichoi           ###   ########.fr       */
+/*   Updated: 2021/12/02 17:51:02 by yichoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,13 @@ char	**ft_split(char const *s, char c)
 	while (word_count--)
 	{
 		j = ft_find(s, c, i);
-		ptr[z] = ft_substr(ptr[z], s[i], s[j] - s[i] + 1);
+		ptr[z] = ft_substr(s, (unsigned int)i, j - i + 1);
 		if (!ft_free(ptr, z))
 			return (NULL);
-		z++;
+		while (s[j + 1] == c)
+			j++;
 		i = j + 1;
+		z++;
 	}
 	ptr[z] = '\0';
 	return (ptr);
