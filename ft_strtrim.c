@@ -6,11 +6,25 @@
 /*   By: yichoi <yichoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 20:22:01 by yichoi            #+#    #+#             */
-/*   Updated: 2021/11/27 17:12:48 by yichoi           ###   ########.fr       */
+/*   Updated: 2021/12/04 21:51:14 by yichoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+int	is_charset(char const *set, char c)
+{
+	size_t	i;
+
+	i = 0;
+	while (set[i])
+	{
+		if (set[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
@@ -18,18 +32,24 @@ char	*ft_strtrim(char const *s1, char const *set)
 	size_t	start;
 	size_t	end;
 
-	if (!s1)
+	if (!s1 || !set)
 		return (NULL);
 	start = 0;
-	while (ft_strchr(set, s1[start]))
-		start++;
 	end = ft_strlen(s1);
-	while (ft_strchr(set, s1[end]))
+	while (is_charset(set, s1[start]) && s1[start])
+		start++;
+	while (is_charset(set, s1[end - 1]) && start < end)
 		end--;
-	if (end <= 0)
+	if (start == end)
 		return (ft_strdup(""));
-	ptr = (char	*)malloc(sizeof(char) * (end - start + 1));
+	ptr = (char	*)malloc(sizeof(char) * (end - start + 2));
 	if (!ptr)
 		return (NULL);
-	return (NULL);
+	ft_strlcpy(ptr, &s1[start], end - start + 1);
+	if (ft_strncmp(&s1[start], ptr, end - start + 1))
+	{
+		free(ptr);
+		return (NULL);
+	}
+	return (ptr);
 }
