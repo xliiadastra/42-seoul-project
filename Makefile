@@ -6,7 +6,7 @@
 #    By: yichoi <yichoi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/24 15:18:40 by yichoi            #+#    #+#              #
-#    Updated: 2021/12/05 19:51:04 by yichoi           ###   ########.fr        #
+#    Updated: 2021/12/05 21:21:43 by yichoi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,8 +59,8 @@ SRCS		=	ft_memset.c		\
 				ft_putnbr_fd.c
 
 SRCS_BN		=	ft_lstnew.c			\
-#				ft_lstadd_front.c	\
-				ft_lstsize.c		\
+				ft_lstadd_front.c	\
+#				ft_lstsize.c		\
 				ft_lstlast.c		\
 				ft_lstadd_back.c	\
 				ft_lstdelone.c		\
