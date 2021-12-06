@@ -6,7 +6,7 @@
 /*   By: yichoi <yichoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 18:58:20 by yichoi            #+#    #+#             */
-/*   Updated: 2021/12/03 19:42:21 by yichoi           ###   ########.fr       */
+/*   Updated: 2021/12/06 20:05:01 by yichoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	is_space(int c)
 
 int	ft_atoi(const char *str)
 {
-	char	sign;
+	char				sign;
 	unsigned long long	result;
 
 	result = 0;

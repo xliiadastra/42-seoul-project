@@ -6,7 +6,7 @@
 /*   By: yichoi <yichoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 20:22:01 by yichoi            #+#    #+#             */
-/*   Updated: 2021/12/04 21:51:14 by yichoi           ###   ########.fr       */
+/*   Updated: 2021/12/06 20:46:44 by yichoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 		end--;
 	if (start == end)
 		return (ft_strdup(""));
-	ptr = (char	*)malloc(sizeof(char) * (end - start + 2));
+	ptr = (char *)malloc(sizeof(char) * (end - start + 2));
 	if (!ptr)
 		return (NULL);
 	ft_strlcpy(ptr, &s1[start], end - start + 1);
