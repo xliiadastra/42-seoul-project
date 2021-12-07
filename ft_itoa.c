@@ -6,7 +6,7 @@
 /*   By: yichoi <yichoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 21:13:55 by yichoi            #+#    #+#             */
-/*   Updated: 2021/12/07 21:18:19 by yichoi           ###   ########.fr       */
+/*   Updated: 2021/12/07 21:54:04 by yichoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,19 @@ static void	negative(char	*ptr, int n, int sign, size_t count)
 	if (sign < 0)
 	{
 		ptr[0] = '-';
-		ptr[count + 2] = '\0';
-		while (n && (count > 0))
+		ptr[count + 1] = '\0';
+		while (n)
 		{
-			ptr[count--] = (n % 10) + '0';
+			ptr[--count] = (n % 10) + '0';
 			n = n / 10;
 		}
 	}
 	else
 	{
 		ptr[count] = '\0';
-		while (n && --count >= 0)
+		while (n)
 		{
-			ptr[count] = (n % 10) + '0';
+			ptr[--count] = (n % 10) + '0';
 			n = n / 10;
 		}
 	}
