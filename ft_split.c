@@ -6,11 +6,12 @@
 /*   By: yichoi <yichoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 21:28:14 by yichoi            #+#    #+#             */
-/*   Updated: 2021/12/03 21:43:19 by yichoi           ###   ########.fr       */
+/*   Updated: 2021/12/07 21:26:17 by yichoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+//#include <stdio.h>
 
 static int	is_word(char const *s, int c)
 {
@@ -33,7 +34,7 @@ static int	is_word(char const *s, int c)
 	return (count);
 }
 
-static int	ft_find(char s, char c)
+static int	is_char(char s, char c)
 {
 	if (s == c)
 		return (1);
@@ -41,54 +42,81 @@ static int	ft_find(char s, char c)
 		return (0);
 }
 
-static int	ft_free(char **s, size_t count)
+static void	ft_free(char **ptr, size_t count)
 {
-	while (count--)
+	while (count >= 0)
+		free(ptr[count--]);
+	free(ptr);
+	ptr = NULL;
+}
+
+static char	*split_strdup(char const *s, size_t *start, char c)
+{
+	char	*ptr;
+	size_t	i;
+	size_t	end;
+	size_t	len;
+
+	i = 0;
+	end = *start;
+	while (s[end] && s[end] != c)
+		end++;
+	len = end - *start;
+	ptr = (char *)malloc(len + 1);
+	if (!ptr)
+		return (NULL);
+	while (len--)
 	{
-		if (!s[count])
-		{
-			free(s);
-			return (0);
-		}
+		ptr[i] = s[*start + i];
+		i++;
 	}
-	return (1);
+	*start = end;
+	ptr[i] = '\0';
+	return (ptr);
 }
 
 char	**ft_split(char const *s, char c)
 {
 	char	**ptr;
 	size_t	word_count;
+	size_t	index;
 	size_t	i;
-	size_t	j;
-	size_t	z;
 
-	i = 0;
-	j = 0;
-	z = 0;
+	index = 0;
 	if (!s)
 		return (NULL);
 	word_count = is_word(s, c);
 	ptr = (char **)malloc(sizeof(char *) * word_count + 1);
 	if (!ptr)
 		return (NULL);
+	i = 0;
+	index = 0;
 	while (s[i])
 	{
-		if (!ft_find(s[i], c))
+		if (!is_char(s[i], c))
 		{
-			j = i;
-			while (s[j] != c && s[j])
-				j++;
-			if (j != i)
-				ptr[z] = ft_substr(s, (unsigned int)i, j - i + 1);
-			else
-				break ;
-			i = j;
-			z++;
+			ptr[index] = split_strdup(s, &i, c);
+			if (!ptr[index])
+			{
+				ft_free(ptr, index);
+				return (NULL);
+			}
+			index++;
 		}
 		else
 			i++;
 	}
-	if (!ft_free(ptr, word_count))
-		return (NULL);
+	ptr[index] = NULL;
 	return (ptr);
 }
+
+//int main()
+//{
+//	char s1[] = {"hello  fucking     apple  !  "};
+//	char c = ' ';
+//	char	**ptr;
+//
+//	ptr = ft_split(s1, c);
+//	for (int i = 0; i < 4; i++)
+//		printf("%s\n", ptr[i]);
+//}

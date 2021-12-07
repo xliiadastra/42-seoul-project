@@ -6,7 +6,7 @@
 /*   By: yichoi <yichoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 18:58:20 by yichoi            #+#    #+#             */
-/*   Updated: 2021/12/06 20:05:01 by yichoi           ###   ########.fr       */
+/*   Updated: 2021/12/07 21:04:34 by yichoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int	ft_atoi(const char *str)
 		result = (result * 10) + (long long)(*str - '0');
 		str++;
 	}
-	if (result > 2147483647ULL && sign == 1)
+	if (result > 9223372036854775807ULL && sign == 1)
 		return (-1);
-	else if (result > 2147483648ULL && sign == -1)
+	else if (result > 9223372036854775808ULL && sign == -1)
 		return (0);
 	else
 		return ((int)((long long)sign * result));
