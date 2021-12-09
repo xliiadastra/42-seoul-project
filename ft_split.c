@@ -6,12 +6,11 @@
 /*   By: yichoi <yichoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 21:28:14 by yichoi            #+#    #+#             */
-/*   Updated: 2021/12/07 21:26:17 by yichoi           ###   ########.fr       */
+/*   Updated: 2021/12/09 14:32:14 by yichoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-//#include <stdio.h>
 
 static int	is_word(char const *s, int c)
 {
@@ -34,23 +33,21 @@ static int	is_word(char const *s, int c)
 	return (count);
 }
 
-static int	is_char(char s, char c)
+void	ft_free(char **ptr)
 {
-	if (s == c)
-		return (1);
-	else
-		return (0);
-}
+	size_t	index;
 
-static void	ft_free(char **ptr, size_t count)
-{
-	while (count >= 0)
-		free(ptr[count--]);
+	index = 0;
+	while (ptr[index])
+	{
+		free(ptr[index]);
+		index++;
+	}
 	free(ptr);
 	ptr = NULL;
 }
 
-static char	*split_strdup(char const *s, size_t *start, char c)
+static char	*split_strdup(char const *s, size_t *start, char c, char **s_ptr)
 {
 	char	*ptr;
 	size_t	i;
@@ -64,7 +61,10 @@ static char	*split_strdup(char const *s, size_t *start, char c)
 	len = end - *start;
 	ptr = (char *)malloc(len + 1);
 	if (!ptr)
+	{
+		ft_free(s_ptr);
 		return (NULL);
+	}
 	while (len--)
 	{
 		ptr[i] = s[*start + i];
@@ -82,41 +82,24 @@ char	**ft_split(char const *s, char c)
 	size_t	index;
 	size_t	i;
 
-	index = 0;
-	if (!s)
-		return (NULL);
 	word_count = is_word(s, c);
-	ptr = (char **)malloc(sizeof(char *) * word_count + 1);
-	if (!ptr)
+	ptr = (char **)malloc(sizeof(char *) * (word_count + 1));
+	if (!ptr || !s)
 		return (NULL);
+	ptr[word_count] = NULL;
 	i = 0;
 	index = 0;
 	while (s[i])
 	{
-		if (!is_char(s[i], c))
+		if (s[i] != c)
 		{
-			ptr[index] = split_strdup(s, &i, c);
+			ptr[index] = split_strdup(s, &i, c, ptr);
 			if (!ptr[index])
-			{
-				ft_free(ptr, index);
 				return (NULL);
-			}
 			index++;
 		}
 		else
 			i++;
 	}
-	ptr[index] = NULL;
 	return (ptr);
 }
-
-//int main()
-//{
-//	char s1[] = {"hello  fucking     apple  !  "};
-//	char c = ' ';
-//	char	**ptr;
-//
-//	ptr = ft_split(s1, c);
-//	for (int i = 0; i < 4; i++)
-//		printf("%s\n", ptr[i]);
-//}

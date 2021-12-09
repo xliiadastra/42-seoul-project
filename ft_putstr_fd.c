@@ -6,7 +6,7 @@
 /*   By: yichoi <yichoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 19:32:11 by yichoi            #+#    #+#             */
-/*   Updated: 2021/12/05 20:11:14 by yichoi           ###   ########.fr       */
+/*   Updated: 2021/12/09 17:15:28 by yichoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_putstr_fd(char *s, int fd)
 {
 	size_t	len;
 
-	if (!s)
+	if (!s || fd < 0)
 		return ;
 	len = ft_strlen(s);
 	write(fd, s, len);

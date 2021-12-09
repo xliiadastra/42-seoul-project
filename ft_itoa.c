@@ -6,17 +6,21 @@
 /*   By: yichoi <yichoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 21:13:55 by yichoi            #+#    #+#             */
-/*   Updated: 2021/12/07 21:54:04 by yichoi           ###   ########.fr       */
+/*   Updated: 2021/12/09 17:18:14 by yichoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	count_nu(int n)
+static int	count_nu(int n)
 {
-	size_t	count;
+	int	count;
 
 	count = 0;
+	if (n == 0)
+		return (1);
+	if (n < 0)
+		count++;
 	while (n)
 	{
 		n = n / 10;
@@ -25,47 +29,32 @@ static size_t	count_nu(int n)
 	return (count);
 }
 
-static void	negative(char	*ptr, int n, int sign, size_t count)
+static int	ft_abs(int n)
 {
-	if (sign < 0)
-	{
-		ptr[0] = '-';
-		ptr[count + 1] = '\0';
-		while (n)
-		{
-			ptr[--count] = (n % 10) + '0';
-			n = n / 10;
-		}
-	}
-	else
-	{
-		ptr[count] = '\0';
-		while (n)
-		{
-			ptr[--count] = (n % 10) + '0';
-			n = n / 10;
-		}
-	}
+	if (n < 0)
+		return (-n);
+	return (n);
 }
 
 char	*ft_itoa(int n)
 {
 	char	*ptr;
-	size_t	count;
+	int		count;
 
 	count = count_nu(n);
-	if (n < 0)
-		ptr = (char *)ft_calloc(count + 2, sizeof(char));
-	else
-		ptr = (char *)ft_calloc(count + 1, sizeof(char));
+	ptr = (char *)malloc(sizeof(char) * (count + 1));
 	if (!ptr)
 		return (NULL);
-	if (n < 0)
+	ptr[count] = '\0';
+	if (n == 0)
+		ptr[0] = '0';
+	else if (n < 0)
+		ptr[0] = '-';
+	while (n)
 	{
-		negative(ptr, -(n / 10), -1, count);
-		ptr[count + 1] = -(n % 10);
+		ptr[count - 1] = ft_abs(n % 10) + '0';
+		n /= 10;
+		count--;
 	}
-	else
-		negative(ptr, n, 1, count);
 	return (ptr);
 }
