@@ -6,7 +6,7 @@
 /*   By: yichoi <yichoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 21:28:14 by yichoi            #+#    #+#             */
-/*   Updated: 2021/12/09 14:32:14 by yichoi           ###   ########.fr       */
+/*   Updated: 2021/12/09 20:04:55 by yichoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,16 @@ static char	*split_strdup(char const *s, size_t *start, char c, char **s_ptr)
 	return (ptr);
 }
 
+static int	valid(char const *s, char **ptr)
+{
+	if (!s || !ptr)
+	{
+		free(ptr);
+		return (0);
+	}
+	return (1);
+}
+
 char	**ft_split(char const *s, char c)
 {
 	char	**ptr;
@@ -82,9 +92,11 @@ char	**ft_split(char const *s, char c)
 	size_t	index;
 	size_t	i;
 
+	if (!s)
+		return (NULL);
 	word_count = is_word(s, c);
 	ptr = (char **)malloc(sizeof(char *) * (word_count + 1));
-	if (!ptr || !s)
+	if (!valid(s, ptr))
 		return (NULL);
 	ptr[word_count] = NULL;
 	i = 0;

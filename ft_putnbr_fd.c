@@ -6,7 +6,7 @@
 /*   By: yichoi <yichoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 19:41:58 by yichoi            #+#    #+#             */
-/*   Updated: 2021/12/09 18:06:24 by yichoi           ###   ########.fr       */
+/*   Updated: 2021/12/09 18:52:09 by yichoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,29 +27,24 @@ static int	valid(int n, int fd)
 	return (1);
 }
 
-static char	*itoa_fd(int n, int *len)
+static void	itoa_fd(int n, int *len, int fd)
 {
-	char	*ptr[11];
-	int		i;
+	char	ptr[10];
 	int		n_len;
 
-	i = 0;
 	n_len = *len;
-	while (i < 11)
-		ptr[i++] = 0;
 	while (n)
 	{
 		ptr[n_len] = n % 10 + '0';
 		n /= 10;
 		n_len--;
 	}
-	*len = n_len;
-	return (ptr);
+	while (++n_len <= 9)
+		write(fd, &ptr[n_len], 1);
 }
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	char	*ptr;
 	int		len;
 
 	if (!valid(n, fd))
@@ -65,7 +60,5 @@ void	ft_putnbr_fd(int n, int fd)
 		return ;
 	}
 	len = 9;
-	ptr = itoa_fd(n, &len);
-	while (++len <= 9)
-		write(fd, &ptr[len], 1);
+	itoa_fd(n, &len, fd);
 }
