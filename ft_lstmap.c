@@ -6,7 +6,7 @@
 /*   By: yichoi <yichoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 19:03:02 by yichoi            #+#    #+#             */
-/*   Updated: 2021/12/06 19:31:19 by yichoi           ###   ########.fr       */
+/*   Updated: 2021/12/10 16:23:10 by yichoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,17 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 
 	if (!lst)
 		return (NULL);
-	head = (t_list *)malloc(sizeof(t_list));
-	if (!head)
-		return (NULL);
-	head->next = (NULL);
-	ptr = head;
+	head = NULL;
 	while (lst)
 	{
-		(*f)(lst->content);
-		head = ft_lstnew(lst->content);
+		ptr = ft_lstnew((*f)(lst->content));
+		if (!ptr)
+		{
+			ft_lstclear(&ptr, del);
+			return (NULL);
+		}
+		ft_lstadd_back(&head, ptr);
 		lst = lst->next;
-		head = head->next;
 	}
-	head = ptr;
-	(*del)(ptr->content);
-	free(ptr);
 	return (head);
 }

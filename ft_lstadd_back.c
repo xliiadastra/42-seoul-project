@@ -6,7 +6,7 @@
 /*   By: yichoi <yichoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 18:34:18 by yichoi            #+#    #+#             */
-/*   Updated: 2021/12/07 16:22:11 by yichoi           ###   ########.fr       */
+/*   Updated: 2021/12/10 15:00:27 by yichoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_list	*ptr;
-
-	if (!(*lst))
+	if (!lst || !new)
 		return ;
-	ptr = *lst;
-	while (ptr)
-		ptr = ptr->next;
-	ptr->next = new;
+	if (!(*lst))
+	{
+		*lst = new;
+		return ;
+	}
+	ft_lstlast(*lst)->next = new;
 }

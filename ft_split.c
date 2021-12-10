@@ -6,7 +6,7 @@
 /*   By: yichoi <yichoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 21:28:14 by yichoi            #+#    #+#             */
-/*   Updated: 2021/12/09 20:04:55 by yichoi           ###   ########.fr       */
+/*   Updated: 2021/12/10 19:05:15 by yichoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	is_word(char const *s, int c)
 	return (count);
 }
 
-void	ft_free(char **ptr)
+static void	ft_free(char **ptr)
 {
 	size_t	index;
 
@@ -75,14 +75,10 @@ static char	*split_strdup(char const *s, size_t *start, char c, char **s_ptr)
 	return (ptr);
 }
 
-static int	valid(char const *s, char **ptr)
+static void	reset(size_t *i, size_t *index)
 {
-	if (!s || !ptr)
-	{
-		free(ptr);
-		return (0);
-	}
-	return (1);
+	*i = 0;
+	*index = 0;
 }
 
 char	**ft_split(char const *s, char c)
@@ -96,19 +92,17 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	word_count = is_word(s, c);
 	ptr = (char **)malloc(sizeof(char *) * (word_count + 1));
-	if (!valid(s, ptr))
+	if (!ptr)
 		return (NULL);
 	ptr[word_count] = NULL;
-	i = 0;
-	index = 0;
+	reset(&i, &index);
 	while (s[i])
 	{
 		if (s[i] != c)
 		{
 			ptr[index] = split_strdup(s, &i, c, ptr);
-			if (!ptr[index])
+			if (!ptr[index++])
 				return (NULL);
-			index++;
 		}
 		else
 			i++;
