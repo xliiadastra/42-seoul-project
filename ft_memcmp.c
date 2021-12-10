@@ -6,12 +6,12 @@
 /*   By: yichoi <yichoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 20:08:56 by yichoi            #+#    #+#             */
-/*   Updated: 2021/12/07 15:36:41 by yichoi           ###   ########.fr       */
+/*   Updated: 2021/12/10 19:17:14 by yichoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
+
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
 	const unsigned char	*ptr_s1;

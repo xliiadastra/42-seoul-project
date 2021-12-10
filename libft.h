@@ -6,15 +6,15 @@
 /*   By: yichoi <yichoi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 14:16:10 by yichoi            #+#    #+#             */
-/*   Updated: 2021/12/09 19:49:26 by yichoi           ###   ########.fr       */
+/*   Updated: 2021/12/10 19:24:27 by yichoi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-#include <unistd.h>
-#include <stdlib.h>
+# include <unistd.h>
+# include <stdlib.h>
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
@@ -56,9 +56,9 @@ void	ft_putnbr_fd(int n, int fd);
 
 typedef struct s_list
 {
-	void 			*content;
-	struct s_list 	*next;
-}				 	t_list;
+	void			*content;
+	struct s_list	*next;
+}	t_list;
 
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
